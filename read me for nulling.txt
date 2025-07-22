@@ -5,3 +5,31 @@ update the handle function like this
 add return $next($request); as the first line of the function
 
 this will return the requested routes without checking for activation. i.e. bypassing license activation
+
+so that this is the updated file 
+
+---------------
+core\vendor\laramin\utility\src\Utility.php
+---------------
+<?php
+
+namespace Laramin\Utility;
+
+use Closure;
+
+class Utility{
+
+    public function handle($request, Closure $next)
+    {
+        // return before checking
+        return $next($request);
+
+        if (!Helpmate::sysPass()) {
+            return redirect()->route(VugiChugi::acRouter());
+        }
+        abort_if(Helpmate::sysPass() === 99 && request()->isMethod('post'),401);
+        return $next($request);
+    }
+}
+---------------
+
