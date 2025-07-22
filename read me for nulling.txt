@@ -1,0 +1,7 @@
+go to file core\vendor\laramin\utility\src\Utility.php
+
+update the handle function like this
+
+add return $next($request); as the first line of the function
+
+this will return the requested routes without checking for activation. i.e. bypassing license activation
